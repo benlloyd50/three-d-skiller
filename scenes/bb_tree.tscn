@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cv061ydf1k834"]
+
+[ext_resource type="Texture2D" uid="uid://ctxxus5w0iugc" path="res://art/Overworld.png" id="1_3y3gx"]
+[ext_resource type="Texture2D" uid="uid://0ksn8eudym05" path="res://art/shadow.png" id="2_l4o16"]
+[ext_resource type="Script" uid="uid://dj8ypp1fdj7xa" path="res://scripts/attackable.gd" id="2_sfj6h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al25e"]
+atlas = ExtResource("1_3y3gx")
+region = Rect2(48, 608, 16, 16.777893)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l4o16"]
+height = 4.215088
+radius = 1.055
+
+[node name="BbTree" type="Node3D" unique_id=291180481]
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1374393075]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="tree sprite" type="Sprite3D" parent="Pivot" unique_id=1357590334]
+transform = Transform3D(1.6666663, 0, 0, 0, 1.6666663, 0, 0, 0, 1.6666663, 0, 0.2558545, 0)
+pixel_size = 0.25
+billboard = 2
+texture_filter = 0
+texture = SubResource("AtlasTexture_al25e")
+
+[node name="shadow" type="Sprite3D" parent="Pivot" unique_id=1443310691]
+transform = Transform3D(2.0014634, 0, 0, 0, -8.742276e-08, -0.99699986, 0, 1.9999995, -4.358025e-08, 0, -3.1022408, 0)
+pixel_size = 0.25
+texture_filter = 0
+texture = ExtResource("2_l4o16")
+
+[node name="Tree" type="StaticBody3D" parent="Pivot" unique_id=1260696974]
+transform = Transform3D(1.6666663, 0, 0, 0, 1.6666663, 0, 0, 0, 1.6666663, 0, 0, 0)
+script = ExtResource("2_sfj6h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Tree" unique_id=467967866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2103882, 0)
+shape = SubResource("CylinderShape3D_l4o16")

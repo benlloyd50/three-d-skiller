@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://clmeanii24e5s"]
+
+[ext_resource type="PackedScene" uid="uid://cv061ydf1k834" path="res://scenes/bb_tree.tscn" id="1_cfiho"]
+[ext_resource type="PackedScene" uid="uid://srl1w5wjsuwm" path="res://scenes/player.tscn" id="1_l6sm8"]
+[ext_resource type="Shader" uid="uid://c5flrtx1wxiaj" path="res://shaders/rand_repeat.gdshader" id="3_cfiho"]
+[ext_resource type="Texture2D" uid="uid://ctxxus5w0iugc" path="res://art/Overworld.png" id="4_sw2lc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e5wgm"]
+size = Vector3(100, 2, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sw2lc"]
+render_priority = 0
+shader = ExtResource("3_cfiho")
+shader_parameter/region_size_px = Vector2(0, 0)
+shader_parameter/tile_factor = Vector2(1, 1)
+shader_parameter/atlas_offset = Vector2(0, 0)
+shader_parameter/atlas = ExtResource("4_sw2lc")
+
+[sub_resource type="BoxMesh" id="BoxMesh_sw2lc"]
+material = SubResource("ShaderMaterial_sw2lc")
+size = Vector3(100, 1, 100)
+
+[node name="Main InGame" type="Node" unique_id=1406437048]
+
+[node name="BbTree" parent="." unique_id=291180481 instance=ExtResource("1_cfiho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7408624, -8.018261)
+
+[node name="player" parent="." unique_id=1226449582 instance=ExtResource("1_l6sm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=635711500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=680996964]
+shape = SubResource("BoxShape3D_e5wgm")
+debug_color = Color(0, 0.6, 0.701961, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=962944662]
+mesh = SubResource("BoxMesh_sw2lc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=781956234]
+transform = Transform3D(1, 0, 0, 0, 0.495307, 0.868718, 0, -0.868718, 0.495307, 0, 12.0875, 20.1858)

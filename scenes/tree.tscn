@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://jjd3bhrwim87"]
+
+[ext_resource type="Script" uid="uid://ia6gxbh40gx4" path="res://scripts/tree.gd" id="1_avsvi"]
+[ext_resource type="Script" uid="uid://dj8ypp1fdj7xa" path="res://scripts/attackable.gd" id="2_vplca"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ict6q"]
+height = 2.5
+radius = 1.055
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_avsvi"]
+albedo_color = Color(0.236132, 0.150114, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vplca"]
+material = SubResource("StandardMaterial3D_avsvi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_viusy"]
+albedo_color = Color(0.155, 0.31, 0.157583, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qd6xs"]
+material = SubResource("StandardMaterial3D_viusy")
+top_radius = 0.1
+bottom_radius = 1.0
+height = 4.0
+
+[node name="Tree" type="Node3D"]
+script = ExtResource("1_avsvi")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="Tree" type="StaticBody3D" parent="Pivot"]
+script = ExtResource("2_vplca")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.278236, 0)
+shape = SubResource("CylinderShape3D_ict6q")
+
+[node name="Trunk" type="MeshInstance3D" parent="Pivot"]
+mesh = SubResource("CylinderMesh_vplca")
+skeleton = NodePath("../..")
+
+[node name="Leaves" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CylinderMesh_qd6xs")
