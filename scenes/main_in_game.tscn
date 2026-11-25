@@ -24,6 +24,7 @@ size = Vector3(100, 1, 100)
 
 [node name="player" parent="." unique_id=1226449582 instance=ExtResource("1_l6sm8")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, 0)
+bob_rate = 10.0
 
 [node name="BbTree3" parent="." unique_id=291180481 instance=ExtResource("1_cfiho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.57641, 1.3839183, -46.95507)
