@@ -30,9 +30,10 @@ pixel_size = 0.25
 texture_filter = 0
 texture = ExtResource("2_l4o16")
 
-[node name="Tree" type="StaticBody3D" parent="Pivot" unique_id=1260696974]
+[node name="Tree" type="StaticBody3D" parent="Pivot" unique_id=1260696974 node_paths=PackedStringArray("despawn_on_death")]
 transform = Transform3D(1.6666663, 0, 0, 0, 1.6666663, 0, 0, 0, 1.6666663, 0, 0, 0)
 script = ExtResource("2_sfj6h")
+despawn_on_death = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Tree" unique_id=467967866]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2103882, 0)

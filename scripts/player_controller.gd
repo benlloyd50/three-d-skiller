@@ -23,6 +23,7 @@ var jump_vel: Vector3 # Jumping velocity
 # Sprite hand on the player
 @onready var hand: Sprite2D = $CanvasLayer/Control/hudhand
 @onready var hitcast: RayCast3D = $Pivot/hitcast
+@onready var hit_sound: AudioStreamPlayer3D = $hitsounds
 
 var hand_sprite_position: Vector2
 var going_to_max: Dictionary[String, bool] = {
@@ -60,11 +61,14 @@ func _physics_process(delta: float) -> void:
 
 func attack(_delta: float) -> void:
     var obj = hitcast.get_collider()
+    hit_sound.play()
     if obj:
         print("Hit a ", obj.name)
         # send damage to the object and have it respond
-        if obj.has_method("on_attack_hit"):
-            obj.on_attack_hit(2)
+        if obj.has_method("ev_attack_hit"):
+            obj.ev_attack_hit(2)
+        else:
+            print("The obj.name has no method to handle being hit.")
 
 func capture_mouse() -> void:
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
