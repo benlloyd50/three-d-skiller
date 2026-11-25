@@ -92,6 +92,10 @@ primary_action={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="Ground"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

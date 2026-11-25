@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://srl1w5wjsuwm"]
 
+[ext_resource type="Script" uid="uid://dj408yg74fmb7" path="res://scripts/footsteps.gd" id="1_fjrip"]
 [ext_resource type="Script" uid="uid://hobsns4jtt2j" path="res://scripts/player_controller.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://dksc4d6mjr6jq" path="res://audio/punch1.ogg" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cpjts3f3o4jul" path="res://art/hand_large.png" id="2_g2els"]
@@ -10,12 +11,6 @@
 [ext_resource type="AudioStream" uid="uid://b3333wol188ng" path="res://audio/Footstep_Dirt_00.ogg" id="6_qfm1y"]
 [ext_resource type="AudioStream" uid="uid://bbnmxde2gkj4a" path="res://audio/Footstep_Dirt_01.ogg" id="7_fulsm"]
 [ext_resource type="AudioStream" uid="uid://bv8gqvrtlst61" path="res://audio/Footstep_Dirt_02.ogg" id="8_4r5pv"]
-[ext_resource type="AudioStream" uid="uid://d216ypvq6yv5d" path="res://audio/Footstep_Dirt_03.ogg" id="9_60mlk"]
-[ext_resource type="AudioStream" uid="uid://dswomn10hi3ot" path="res://audio/Footstep_Dirt_04.ogg" id="10_i4ail"]
-[ext_resource type="AudioStream" uid="uid://vq4g3nf3b3fy" path="res://audio/Footstep_Dirt_05.ogg" id="11_a38lo"]
-[ext_resource type="AudioStream" uid="uid://jibl5cmjdu4" path="res://audio/Footstep_Dirt_06.ogg" id="12_4ni07"]
-[ext_resource type="AudioStream" uid="uid://dptqbete275xx" path="res://audio/Footstep_Dirt_07.ogg" id="13_l71n6"]
-[ext_resource type="AudioStream" uid="uid://67t7bg4vin1w" path="res://audio/Footstep_Dirt_08.ogg" id="14_ke2ow"]
 [ext_resource type="AudioStream" uid="uid://dw76gq6lu2tvb" path="res://audio/Footstep_Dirt_09.ogg" id="15_ujl30"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4flbx"]
@@ -35,17 +30,11 @@ stream_2/stream = ExtResource("4_ur7pv")
 stream_3/stream = ExtResource("5_y4r1p")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hs5hk"]
-streams_count = 10
+streams_count = 4
 stream_0/stream = ExtResource("6_qfm1y")
 stream_1/stream = ExtResource("7_fulsm")
 stream_2/stream = ExtResource("8_4r5pv")
-stream_3/stream = ExtResource("9_60mlk")
-stream_4/stream = ExtResource("10_i4ail")
-stream_5/stream = ExtResource("11_a38lo")
-stream_6/stream = ExtResource("12_4ni07")
-stream_7/stream = ExtResource("13_l71n6")
-stream_8/stream = ExtResource("14_ke2ow")
-stream_9/stream = ExtResource("15_ujl30")
+stream_3/stream = ExtResource("15_ujl30")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("3_qhqgy")
@@ -57,10 +46,17 @@ script = ExtResource("1_g2els")
 [node name="Pivot" type="Node3D" parent="." unique_id=396520076]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00330329, 0, -0.0010668)
 
+[node name="groundcheck" type="RayCast3D" parent="Pivot" unique_id=1382548954]
+transform = Transform3D(4, 0, 0, 0, -4, 3.496912e-07, 0, -3.496912e-07, -4, -0.006403693, -1.0207182, 0.01633436)
+target_position = Vector3(0, 0.05, 0)
+collision_mask = 2
+collide_with_areas = true
+debug_shape_custom_color = Color(0.606667, 0, 0.91, 1)
+
 [node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=1941683032]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00330329, 0.612627, -0.0010668)
 
-[node name="player capsule" type="MeshInstance3D" parent="Pivot" unique_id=1882827442]
+[node name="player gfx" type="MeshInstance3D" parent="Pivot" unique_id=1882827442]
 mesh = SubResource("CapsuleMesh_onrkg")
 
 [node name="hitcast" type="RayCast3D" parent="Pivot" unique_id=1284785171]
@@ -76,8 +72,13 @@ shape = SubResource("CapsuleShape3D_sh265")
 stream = SubResource("AudioStreamRandomizer_2l50j")
 volume_db = -20.935
 
-[node name="footsteps" type="AudioStreamPlayer3D" parent="." unique_id=766870794]
+[node name="footsteps" type="AudioStreamPlayer3D" parent="." unique_id=766870794 node_paths=PackedStringArray("hitbox", "ground_check")]
 stream = SubResource("AudioStreamRandomizer_hs5hk")
+volume_db = 10.898
+script = ExtResource("1_fjrip")
+hitbox = NodePath("../hitbox")
+ground_check = NodePath("../Pivot/groundcheck")
+footstep_spacing = 2.2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=198022207]
 
@@ -105,3 +106,6 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_qhqgy")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=1787971927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.60668445, 0)
