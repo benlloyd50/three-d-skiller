@@ -22,11 +22,17 @@ size = Vector3(100, 1, 100)
 
 [node name="Main InGame" type="Node" unique_id=1406437048]
 
-[node name="BbTree" parent="." unique_id=291180481 instance=ExtResource("1_cfiho")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7408624, -8.018261)
-
 [node name="player" parent="." unique_id=1226449582 instance=ExtResource("1_l6sm8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, 0)
+
+[node name="BbTree3" parent="." unique_id=291180481 instance=ExtResource("1_cfiho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.57641, 1.3839183, -46.95507)
+
+[node name="BbTree2" parent="." unique_id=1293215126 instance=ExtResource("1_cfiho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.970722, 1.3846912, -41.653137)
+
+[node name="BbTree" parent="." unique_id=1898933782 instance=ExtResource("1_cfiho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3884301, -8.018261)
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=635711500]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -39,4 +45,11 @@ debug_color = Color(0, 0.6, 0.701961, 1)
 mesh = SubResource("BoxMesh_sw2lc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=781956234]
-transform = Transform3D(1, 0, 0, 0, 0.495307, 0.868718, 0, -0.868718, 0.495307, 0, 12.0875, 20.1858)
+transform = Transform3D(1, 0, 0, 0, 0.495307, 0.868718, 0, -0.868718, 0.495307, 0, 12.0875, 25.59754)
+light_energy = 1.318
+
+[node name="BbTree4" parent="." unique_id=1136337031 instance=ExtResource("1_cfiho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.099007, 1.3839202, -48.84492)
+
+[node name="BbTree5" parent="." unique_id=1936869363 instance=ExtResource("1_cfiho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.49332, 1.3765163, -43.542988)
