@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://dj408yg74fmb7" path="res://scripts/footsteps.gd" id="1_fjrip"]
 [ext_resource type="Script" uid="uid://hobsns4jtt2j" path="res://scripts/player_controller.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://dksc4d6mjr6jq" path="res://audio/punch1.ogg" id="2_fjrip"]
-[ext_resource type="Texture2D" uid="uid://cpjts3f3o4jul" path="res://art/hand_large.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://cpjts3f3o4jul" path="res://art/hand_empty.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://35ud1peywti5" path="res://art/hand_large_pick.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://cvja6duuqgr04" path="res://art/art dump/Mini-Medieval-8x8/Interface.png" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://b2okx3ff5p5ly" path="res://audio/punch2.ogg" id="3_smehm"]
 [ext_resource type="AudioStream" uid="uid://dgog5yr1pkjkb" path="res://audio/punch3.ogg" id="4_ur7pv"]
@@ -42,6 +43,8 @@ region = Rect2(0, 0, 24, 24)
 
 [node name="player" type="CharacterBody3D" unique_id=1684608086]
 script = ExtResource("1_g2els")
+empty_hands = ExtResource("2_g2els")
+pickaxe = ExtResource("3_dqkch")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=396520076]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00330329, 0, -0.0010668)

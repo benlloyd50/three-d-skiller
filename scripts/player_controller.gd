@@ -36,6 +36,9 @@ var going_to_max: Dictionary[String, bool] = {
 @onready var BOB_X_MAX: float = hand.transform.origin.x
 @export_range(0.1, 10.0, 0.1) var bob_rate: float = 3.0
 
+@export var empty_hands: Texture2D
+@export var pickaxe: Texture2D
+
 
 func _ready() -> void:
     capture_mouse()
@@ -46,6 +49,11 @@ func _unhandled_input(event: InputEvent) -> void:
         look_dir = event.relative * 0.001
         if mouse_captured: _rotate_camera()
     if Input.is_action_just_pressed(&"exit"): get_tree().quit()
+
+    if Input.is_key_pressed(KEY_1):
+        hand.texture = empty_hands
+    if Input.is_key_pressed(KEY_2):
+        hand.texture = pickaxe
 
 func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed(&"jump"): jumping = true
