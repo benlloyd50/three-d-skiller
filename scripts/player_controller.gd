@@ -7,6 +7,13 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 @export_range(0, 100, 1) var tilt_sens: float = 1
 @export_range(0, 100, 1) var tilt_magnitude: float = 1.5
+@export_range(0.1, 10.0, 0.1) var bob_rate: float = 3.0
+
+@export var empty_hands: Texture2D
+@export var pickaxe: Texture2D
+var held_item: HeldItem = HeldItem.Hand
+
+enum HeldItem {Hand, Pickaxe}
 
 var jumping: bool = false
 var mouse_captured: bool = false
@@ -26,6 +33,7 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var camera: Camera3D = $Pivot/Camera3D
 @onready var hitcast: RayCast3D = $Pivot/hitcast
 @onready var hit_sound: AudioStreamPlayer3D = $hitsounds
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 var hand_sprite_position: Vector2
 var going_to_max: Dictionary[String, bool] = {
@@ -36,10 +44,6 @@ var going_to_max: Dictionary[String, bool] = {
 @onready var BOB_Y_MAX: float = hand.transform.origin.y + 40
 @onready var BOB_X_MIN: float = hand.transform.origin.x - 30
 @onready var BOB_X_MAX: float = hand.transform.origin.x
-@export_range(0.1, 10.0, 0.1) var bob_rate: float = 3.0
-
-@export var empty_hands: Texture2D
-@export var pickaxe: Texture2D
 
 
 func _ready() -> void:
@@ -53,9 +57,21 @@ func _unhandled_input(event: InputEvent) -> void:
     if Input.is_action_just_pressed(&"exit"): get_tree().quit()
 
     if Input.is_key_pressed(KEY_1):
-        hand.texture = empty_hands
+        held_item = HeldItem.Hand
     if Input.is_key_pressed(KEY_2):
-        hand.texture = pickaxe
+        held_item = HeldItem.Pickaxe
+
+func _process(_delta: float) -> void:
+    _update_held_item(held_item)
+
+func _update_held_item(new_item: HeldItem) -> void:
+    match new_item:
+        HeldItem.Pickaxe:
+            hand.texture = pickaxe
+        HeldItem.Hand:
+            hand.texture = empty_hands
+            anim_player.play("idle")
+
 
 func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed(&"jump"): jumping = true
@@ -71,8 +87,13 @@ func _physics_process(delta: float) -> void:
         attack(delta)
 
 func attack(_delta: float) -> void:
+    if anim_player.is_playing():
+        print("action in progress")
+        return
+
     var obj = hitcast.get_collider()
     hit_sound.play()
+    anim_player.play("swing_pick")
     if obj:
         print("Hit a ", obj.name)
         # send damage to the object and have it respond
