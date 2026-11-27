@@ -58,6 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
     if Input.is_key_pressed(KEY_1):
         held_item = HeldItem.Hand
+        hand.hframes = 1
     if Input.is_key_pressed(KEY_2):
         held_item = HeldItem.Pickaxe
 
@@ -68,6 +69,9 @@ func _update_held_item(new_item: HeldItem) -> void:
     match new_item:
         HeldItem.Pickaxe:
             hand.texture = pickaxe
+            # hacky but it works so when the texture switches the hframe atlas splitting still works
+            # another solution could be a pickaxe idle animation? should explore it
+            hand.hframes = 5
         HeldItem.Hand:
             hand.texture = empty_hands
             anim_player.play("idle")
@@ -83,7 +87,7 @@ func _physics_process(delta: float) -> void:
     _tilt_camera_with_move(delta)
     move_and_slide()
 
-    if Input.is_action_just_pressed(&"primary_action"):
+    if Input.is_action_just_pressed(&"primary_action") && held_item == HeldItem.Pickaxe:
         attack(delta)
 
 func attack(_delta: float) -> void:
