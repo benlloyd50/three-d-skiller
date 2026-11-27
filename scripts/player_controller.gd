@@ -22,6 +22,7 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var pivot: Node3D = $Pivot
 # Sprite hand on the player
 @onready var hand: Sprite2D = $CanvasLayer/Control/hudhand
+@onready var camera: Camera3D = $Pivot/Camera3D
 @onready var hitcast: RayCast3D = $Pivot/hitcast
 @onready var hit_sound: AudioStreamPlayer3D = $hitsounds
 
@@ -62,6 +63,7 @@ func _physics_process(delta: float) -> void:
     if velocity != Vector3.ZERO:
         hand.transform.origin.y = bob_between(hand.transform.origin.y, BOB_Y_MIN, BOB_Y_MAX, 1, delta, "y")
         # hand.transform.origin.x = bob_between(hand.transform.origin.x, BOB_X_MIN, BOB_X_MAX, 0.5, delta, "x")
+    _tilt_camera_with_move(velocity)
     move_and_slide()
 
     if Input.is_action_just_pressed(&"primary_action"):
@@ -103,6 +105,21 @@ func _walk(delta: float) -> Vector3:
     var walk_dir: Vector3 = Vector3(_forward.x, 0, _forward.z).normalized()
     walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)
     return walk_vel
+
+
+# if we move left or right tilt the camera towards a max left and right
+# if no movement camera goes back to 0
+# tilt on the x of the camera pivot
+func _tilt_camera_with_move(move_vec: Vector3) -> void:
+    # if move_vec.is_zero_approx():
+    #     var rotation_to_zero = (0 - camera.rotation.z)
+    #     camera.rotate_x(-rotation_to_zero)
+    if move_vec.x < 0:
+        # when walking left
+        camera.rotation.z = 30
+    if move_vec.x > 0:
+        # when walking right
+        camera.rotation.z = -30
 
 func _gravity(delta: float) -> Vector3:
     grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)
