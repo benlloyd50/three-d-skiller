@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://hobsns4jtt2j" path="res://scripts/player_controller.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://dksc4d6mjr6jq" path="res://audio/punch1.ogg" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cpjts3f3o4jul" path="res://art/hand_empty.png" id="2_g2els"]
-[ext_resource type="Texture2D" uid="uid://b5q8g1x18dqhe" path="res://art/hand_large_pick-sheet.png" id="3_jej6c"]
+[ext_resource type="Texture2D" uid="uid://cnwf5wqqtl08i" path="res://art/hand_large_pick_anims.png" id="3_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://cvja6duuqgr04" path="res://art/art dump/Mini-Medieval-8x8/Interface.png" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://b2okx3ff5p5ly" path="res://audio/punch2.ogg" id="3_smehm"]
 [ext_resource type="AudioStream" uid="uid://dgog5yr1pkjkb" path="res://audio/punch3.ogg" id="4_ur7pv"]
@@ -13,9 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://blllfpusg3w10" path="res://audio/dirt2.ogg" id="9_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://bhjvb0w4dxlsd" path="res://audio/dirt3.ogg" id="10_oprun"]
 [ext_resource type="AudioStream" uid="uid://dq7hbcxqdm1r1" path="res://audio/dirt4.ogg" id="11_a8ls1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
-atlas = ExtResource("3_jej6c")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4flbx"]
 albedo_color = Color(1, 0.637, 0.00999999, 1)
@@ -41,7 +38,7 @@ stream_2/stream = ExtResource("10_oprun")
 stream_3/stream = ExtResource("11_a8ls1")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
-atlas = ExtResource("3_jej6c")
+atlas = ExtResource("3_f1ej7")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("3_qhqgy")
@@ -85,6 +82,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [SubResource("AtlasTexture_fulsm")]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Control/hudhand:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
 
 [sub_resource type="Animation" id="Animation_oprun"]
 resource_name = "idle"
@@ -113,6 +122,83 @@ tracks/1/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/hudhand:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Control/hudhand:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_a8ls1"]
+resource_name = "pullout_pick"
+length = 0.6
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/hudhand:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_fulsm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/hudhand:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/hudhand:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Control/hudhand:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19, 20]
+}
 
 [sub_resource type="Animation" id="Animation_jej6c"]
 resource_name = "swing_pick"
@@ -128,7 +214,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_jej6c")]
+"values": [ExtResource("3_f1ej7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -140,25 +226,38 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [5]
+"values": [7]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/Control/hudhand:frame")
+tracks/2/path = NodePath("CanvasLayer/Control/hudhand:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2714455, 0.3270286, 0.3800286, 0.5714286),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1, 2, 3, 4, 2]
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Control/hudhand:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.27060175, 0.2714455, 0.3270286, 0.32753196, 0.3800286, 0.5714286),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 2, 3, 9, 10, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
 _data = {
 &"RESET": SubResource("Animation_f1ej7"),
 &"idle": SubResource("Animation_oprun"),
+&"pullout_pick": SubResource("Animation_a8ls1"),
 &"swing_pick": SubResource("Animation_jej6c")
 }
 
@@ -166,7 +265,7 @@ _data = {
 script = ExtResource("1_g2els")
 bob_rate = 4.6
 empty_hands = ExtResource("2_g2els")
-pickaxe = SubResource("AtlasTexture_f1ej7")
+pickaxe = ExtResource("3_f1ej7")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=396520076]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00330329, 0, -0.0010668)
@@ -197,11 +296,10 @@ shape = SubResource("CapsuleShape3D_sh265")
 stream = SubResource("AudioStreamRandomizer_2l50j")
 volume_db = -20.935
 
-[node name="footsteps" type="AudioStreamPlayer3D" parent="." unique_id=766870794 node_paths=PackedStringArray("hitbox", "ground_check")]
+[node name="footsteps" type="AudioStreamPlayer3D" parent="." unique_id=766870794 node_paths=PackedStringArray("ground_check")]
 stream = SubResource("AudioStreamRandomizer_hs5hk")
 volume_db = 5.0
 script = ExtResource("1_fjrip")
-hitbox = NodePath("../hitbox")
 ground_check = NodePath("../Pivot/groundcheck")
 footstep_spacing = 2.2
 
@@ -220,10 +318,11 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="hudhand" type="Sprite2D" parent="CanvasLayer/Control" unique_id=796031873]
-position = Vector2(-445.00006, -370.00003)
+position = Vector2(-442.00006, -432.00003)
 scale = Vector2(3.789062, 3.789062)
 texture = SubResource("AtlasTexture_fulsm")
 hframes = 5
+vframes = 3
 
 [node name="crosshair" type="TextureRect" parent="CanvasLayer" unique_id=1143515821]
 anchors_preset = 8

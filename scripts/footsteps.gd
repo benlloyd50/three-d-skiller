@@ -1,6 +1,5 @@
 extends AudioStreamPlayer3D
 
-@export var hitbox: CollisionShape3D
 @export var ground_check: RayCast3D
 var last_position_stepped: Vector3 = Vector3.ZERO
 @export_range(0.1, 10.0, 0.1) var footstep_spacing: float = 2.5

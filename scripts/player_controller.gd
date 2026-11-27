@@ -26,20 +26,17 @@ var walk_vel: Vector3 # Walking velocity
 var grav_vel: Vector3 # Gravity velocity
 var jump_vel: Vector3 # Jumping velocity
 
+var hand_sprite_position: Vector2
+var going_to_max: Dictionary[String, bool] = {"y": true, }
+
 # a point to control the direction of the player's parts
 @onready var pivot: Node3D = $Pivot
-# Sprite hand on the player
 @onready var hand: Sprite2D = $CanvasLayer/Control/hudhand
 @onready var camera: Camera3D = $Pivot/Camera3D
 @onready var hitcast: RayCast3D = $Pivot/hitcast
 @onready var hit_sound: AudioStreamPlayer3D = $hitsounds
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-var hand_sprite_position: Vector2
-var going_to_max: Dictionary[String, bool] = {
-    "x": false,
-    "y": true
-}
 @onready var BOB_Y_MIN: float = hand.transform.origin.y
 @onready var BOB_Y_MAX: float = hand.transform.origin.y + 40
 @onready var BOB_X_MIN: float = hand.transform.origin.x - 30
@@ -49,6 +46,7 @@ var going_to_max: Dictionary[String, bool] = {
 func _ready() -> void:
     capture_mouse()
     hand_sprite_position = hand.position
+    anim_player.play("idle")
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
@@ -58,9 +56,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
     if Input.is_key_pressed(KEY_1):
         held_item = HeldItem.Hand
-        hand.hframes = 1
+        anim_player.play("idle")
     if Input.is_key_pressed(KEY_2):
         held_item = HeldItem.Pickaxe
+        anim_player.play("pullout_pick")
 
 func _process(_delta: float) -> void:
     _update_held_item(held_item)
@@ -69,12 +68,8 @@ func _update_held_item(new_item: HeldItem) -> void:
     match new_item:
         HeldItem.Pickaxe:
             hand.texture = pickaxe
-            # hacky but it works so when the texture switches the hframe atlas splitting still works
-            # another solution could be a pickaxe idle animation? should explore it
-            hand.hframes = 5
         HeldItem.Hand:
             hand.texture = empty_hands
-            anim_player.play("idle")
 
 
 func _physics_process(delta: float) -> void:
@@ -83,7 +78,6 @@ func _physics_process(delta: float) -> void:
     velocity = _walk(delta) + _gravity(delta) + _jump(delta)
     if velocity != Vector3.ZERO:
         hand.transform.origin.y = bob_between(hand.transform.origin.y, BOB_Y_MIN, BOB_Y_MAX, 1, delta, "y")
-        # hand.transform.origin.x = bob_between(hand.transform.origin.x, BOB_X_MIN, BOB_X_MAX, 0.5, delta, "x")
     _tilt_camera_with_move(delta)
     move_and_slide()
 
