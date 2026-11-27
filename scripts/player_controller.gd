@@ -6,6 +6,7 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 @export_range(0, 100, 1) var tilt_sens: float = 1
+@export_range(0, 100, 1) var tilt_magnitude: float = 1.5
 
 var jumping: bool = false
 var mouse_captured: bool = false
@@ -112,14 +113,14 @@ func _walk(delta: float) -> Vector3:
 # tilt on the x of the camera pivot
 func _tilt_camera_with_move(delta: float) -> void:
     var move_dir = Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
-    var move_vec: Vector3 = pivot.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
+    # var move_vec: Vector3 = pivot.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
     var z: float
 
-    if move_vec.x > 0.5: # when walking right
-        z = lerp(camera.rotation_degrees.z, -1.5, tilt_sens * delta)
+    if move_dir.x > 0.999: # when walking right
+        z = lerp(camera.rotation_degrees.z, -tilt_magnitude, tilt_sens * delta)
         camera.rotation_degrees.z = z
-    if move_vec.x < -0.5: # when walking left
-        z = lerp(camera.rotation_degrees.z, 1.5, tilt_sens * delta)
+    if move_dir.x < -0.999: # when walking left
+        z = lerp(camera.rotation_degrees.z, tilt_magnitude, tilt_sens * delta)
         camera.rotation_degrees.z = z
 
     # var rotation_to_zero = (0 - camera.rotation.z)

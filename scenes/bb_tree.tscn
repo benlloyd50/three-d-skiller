@@ -26,7 +26,7 @@ texture = SubResource("AtlasTexture_al25e")
 
 [node name="shadow" type="Sprite3D" parent="Pivot" unique_id=1443310691]
 transform = Transform3D(2.0014634, 0, 0, 0, -8.742276e-08, -0.99699986, 0, 1.9999995, -4.358025e-08, 0, -3.1022408, 0)
-pixel_size = 0.25
+pixel_size = 0.35
 texture_filter = 0
 texture = ExtResource("2_l4o16")
 

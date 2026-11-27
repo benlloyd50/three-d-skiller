@@ -88,13 +88,19 @@ footstep_spacing = 2.2
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1442793112]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="hudhand" type="Sprite2D" parent="CanvasLayer/Control" unique_id=796031873]
-position = Vector2(971, 255)
-scale = Vector2(7, 7)
+position = Vector2(-487.00006, -373)
+scale = Vector2(3.789062, 3.789062)
 texture = ExtResource("2_g2els")
 
 [node name="crosshair" type="TextureRect" parent="CanvasLayer" unique_id=1143515821]
