@@ -5,13 +5,13 @@ class_name Player extends CharacterBody3D
 
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
+@export_range(0, 100, 1) var tilt_sens: float = 1
 
 var jumping: bool = false
 var mouse_captured: bool = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var move_dir: Vector2 # Input direction for movement
 var look_dir: Vector2 # Input direction for look/aim
 
 var walk_vel: Vector3 # Walking velocity
@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
     if velocity != Vector3.ZERO:
         hand.transform.origin.y = bob_between(hand.transform.origin.y, BOB_Y_MIN, BOB_Y_MAX, 1, delta, "y")
         # hand.transform.origin.x = bob_between(hand.transform.origin.x, BOB_X_MIN, BOB_X_MAX, 0.5, delta, "x")
-    _tilt_camera_with_move(velocity)
+    _tilt_camera_with_move(delta)
     move_and_slide()
 
     if Input.is_action_just_pressed(&"primary_action"):
@@ -100,7 +100,7 @@ func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void
         look_dir = Vector2.ZERO
 
 func _walk(delta: float) -> Vector3:
-    move_dir = Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
+    var move_dir = Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
     var _forward: Vector3 = pivot.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
     var walk_dir: Vector3 = Vector3(_forward.x, 0, _forward.z).normalized()
     walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)
@@ -110,16 +110,22 @@ func _walk(delta: float) -> Vector3:
 # if we move left or right tilt the camera towards a max left and right
 # if no movement camera goes back to 0
 # tilt on the x of the camera pivot
-func _tilt_camera_with_move(move_vec: Vector3) -> void:
-    # if move_vec.is_zero_approx():
-    #     var rotation_to_zero = (0 - camera.rotation.z)
-    #     camera.rotate_x(-rotation_to_zero)
-    if move_vec.x < 0:
-        # when walking left
-        camera.rotation.z = 30
-    if move_vec.x > 0:
-        # when walking right
-        camera.rotation.z = -30
+func _tilt_camera_with_move(delta: float) -> void:
+    var move_dir = Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
+    var move_vec: Vector3 = pivot.global_transform.basis * Vector3(move_dir.x, 0, move_dir.y)
+    var z: float
+
+    if move_vec.x > 0.5: # when walking right
+        z = lerp(camera.rotation_degrees.z, -1.5, tilt_sens * delta)
+        camera.rotation_degrees.z = z
+    if move_vec.x < -0.5: # when walking left
+        z = lerp(camera.rotation_degrees.z, 1.5, tilt_sens * delta)
+        camera.rotation_degrees.z = z
+
+    # var rotation_to_zero = (0 - camera.rotation.z)
+    z = lerp(camera.rotation_degrees.z, 0.0, tilt_sens * delta)
+    camera.rotation_degrees.z = z
+
 
 func _gravity(delta: float) -> Vector3:
     grav_vel = Vector3.ZERO if is_on_floor() else grav_vel.move_toward(Vector3(0, velocity.y - gravity, 0), gravity * delta)

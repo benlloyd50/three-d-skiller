@@ -23,7 +23,7 @@ size = Vector3(100, 1, 100)
 [node name="Main InGame" type="Node" unique_id=1406437048]
 
 [node name="player" parent="." unique_id=1226449582 instance=ExtResource("1_l6sm8")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.3207312, 0)
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=635711500]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
