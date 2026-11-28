@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://blllfpusg3w10" path="res://audio/dirt2.ogg" id="9_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://bhjvb0w4dxlsd" path="res://audio/dirt3.ogg" id="10_oprun"]
 [ext_resource type="AudioStream" uid="uid://dq7hbcxqdm1r1" path="res://audio/dirt4.ogg" id="11_a8ls1"]
+[ext_resource type="AudioStream" uid="uid://d0hwhupeqyvkr" path="res://audio/pullout_tool.ogg" id="13_f1ej7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4flbx"]
 albedo_color = Color(1, 0.637, 0.00999999, 1)
@@ -94,6 +95,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [3]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:anim_cancelable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("toolsounds:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_oprun"]
 resource_name = "idle"
@@ -145,6 +170,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:anim_cancelable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_a8ls1"]
@@ -199,10 +236,34 @@ tracks/3/keys = {
 "update": 1,
 "values": [14, 15, 16, 17, 18, 19, 20]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:anim_cancelable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("toolsounds:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="Animation" id="Animation_jej6c"]
-resource_name = "swing_pick"
-length = 0.7
+[sub_resource type="Animation" id="Animation_qfm1y"]
+resource_name = "raise_pick"
+length = 0.05
 step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -247,10 +308,87 @@ tracks/3/path = NodePath("CanvasLayer/Control/hudhand:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.27060175, 0.2714455, 0.3270286, 0.32753196, 0.3800286, 0.5714286),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [7, 8, 2, 3, 9, 10, 0]
+"values": [7]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:anim_cancelable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jej6c"]
+resource_name = "swing_pick"
+length = 0.3
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/hudhand:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_f1ej7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/hudhand:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/hudhand:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Control/hudhand:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.045928247, 0.08843389, 0.25588423),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 9, 10, 0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:anim_cancelable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
@@ -258,6 +396,7 @@ _data = {
 &"RESET": SubResource("Animation_f1ej7"),
 &"idle": SubResource("Animation_oprun"),
 &"pullout_pick": SubResource("Animation_a8ls1"),
+&"raise_pick": SubResource("Animation_qfm1y"),
 &"swing_pick": SubResource("Animation_jej6c")
 }
 
@@ -302,6 +441,9 @@ volume_db = 5.0
 script = ExtResource("1_fjrip")
 ground_check = NodePath("../Pivot/groundcheck")
 footstep_spacing = 2.2
+
+[node name="toolsounds" type="AudioStreamPlayer3D" parent="." unique_id=1421770749]
+stream = ExtResource("13_f1ej7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=198022207]
 

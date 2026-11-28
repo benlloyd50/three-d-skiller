@@ -11,6 +11,8 @@ class_name Player extends CharacterBody3D
 
 @export var empty_hands: Texture2D
 @export var pickaxe: Texture2D
+@export var anim_cancelable: bool = true
+
 var held_item: HeldItem = HeldItem.Hand
 
 enum HeldItem {Hand, Pickaxe}
@@ -59,6 +61,7 @@ func _unhandled_input(event: InputEvent) -> void:
         anim_player.play("idle")
     if Input.is_key_pressed(KEY_2):
         held_item = HeldItem.Pickaxe
+        anim_cancelable = false
         anim_player.play("pullout_pick")
 
 func _process(_delta: float) -> void:
@@ -82,10 +85,13 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
 
     if Input.is_action_just_pressed(&"primary_action") && held_item == HeldItem.Pickaxe:
+        anim_player.play("raise_pick")
+
+    if Input.is_action_just_released(&"primary_action") && held_item == HeldItem.Pickaxe:
         attack(delta)
 
 func attack(_delta: float) -> void:
-    if anim_player.is_playing():
+    if !anim_cancelable:
         print("action in progress")
         return
 
@@ -93,6 +99,7 @@ func attack(_delta: float) -> void:
     hit_sound.play()
     anim_player.play("swing_pick")
     if obj:
+        anim_cancelable = false
         print("Hit a ", obj.name)
         # send damage to the object and have it respond
         if obj.has_method("ev_attack_hit"):
