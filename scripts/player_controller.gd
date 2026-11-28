@@ -11,11 +11,12 @@ class_name Player extends CharacterBody3D
 
 @export var empty_hands: Texture2D
 @export var pickaxe: Texture2D
+@export var axe: Texture2D
 @export var anim_cancelable: bool = true
 
 var held_item: HeldItem = HeldItem.Hand
 
-enum HeldItem {Hand, Pickaxe}
+enum HeldItem {Hand, Pickaxe, Axe}
 
 var jumping: bool = false
 var mouse_captured: bool = false
@@ -63,6 +64,10 @@ func _unhandled_input(event: InputEvent) -> void:
         held_item = HeldItem.Pickaxe
         anim_cancelable = false
         anim_player.play("pullout_pick")
+    if Input.is_key_pressed(KEY_3):
+        held_item = HeldItem.Axe
+        anim_cancelable = false
+        anim_player.play("pullout_axe")
 
 func _process(_delta: float) -> void:
     _update_held_item(held_item)
@@ -88,16 +93,26 @@ func _physics_process(delta: float) -> void:
         anim_player.play("raise_pick")
 
     if Input.is_action_just_released(&"primary_action") && held_item == HeldItem.Pickaxe:
-        attack(delta)
+        attack(delta, held_item)
 
-func attack(_delta: float) -> void:
+    if Input.is_action_just_pressed(&"primary_action") && held_item == HeldItem.Axe:
+        anim_player.play("raise_axe")
+
+    if Input.is_action_just_released(&"primary_action") && held_item == HeldItem.Axe:
+        attack(delta, held_item)
+
+func attack(_delta: float, held_item: HeldItem) -> void:
     if !anim_cancelable:
         print("action in progress")
         return
 
     var obj = hitcast.get_collider()
     hit_sound.play()
-    anim_player.play("swing_pick")
+    if held_item == HeldItem.Axe:
+        anim_player.play("swing_axe")
+    if held_item == HeldItem.Pickaxe:
+        anim_player.play("swing_pick")
+
     if obj:
         anim_cancelable = false
         print("Hit a ", obj.name)
