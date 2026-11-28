@@ -5,3 +5,9 @@
 
 # vscode shit
 .vscode/
+
+# any music besides ogg
+*.wav
+*.wav.import
+*.mp4
+*.flac
