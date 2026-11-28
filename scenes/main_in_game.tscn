@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://srl1w5wjsuwm" path="res://scenes/player.tscn" id="1_l6sm8"]
 [ext_resource type="Shader" uid="uid://c5flrtx1wxiaj" path="res://shaders/rand_repeat.gdshader" id="3_cfiho"]
 [ext_resource type="Texture2D" uid="uid://ctxxus5w0iugc" path="res://art/Overworld.png" id="4_sw2lc"]
+[ext_resource type="PackedScene" uid="uid://cmhxwlaxtqch3" path="res://scenes/sheep_pet.tscn" id="5_jhn4j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e5wgm"]
 size = Vector3(100, 2, 100)
@@ -291,3 +292,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.49332, 1.3765163, -43.5429
 
 [node name="BbTree83" parent="World Object Holder" unique_id=1179314585 instance=ExtResource("1_cfiho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.857613, 1.3839183, -46.95507)
+
+[node name="Sheep" parent="World Object Holder" unique_id=37863863 instance=ExtResource("5_jhn4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.340239, 0.64603996, 3.4022202)

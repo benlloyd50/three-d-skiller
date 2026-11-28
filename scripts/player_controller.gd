@@ -75,6 +75,8 @@ func _process(_delta: float) -> void:
 
 func _update_held_item(new_item: HeldItem) -> void:
     match new_item:
+        HeldItem.Axe:
+            hand.texture = axe
         HeldItem.Pickaxe:
             hand.texture = pickaxe
         HeldItem.Hand:
