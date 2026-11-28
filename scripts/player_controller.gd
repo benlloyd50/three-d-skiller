@@ -13,6 +13,7 @@ class_name Player extends CharacterBody3D
 @export var pickaxe: Texture2D
 @export var axe: Texture2D
 @export var anim_cancelable: bool = true
+@export var hitsounds: Dictionary[String, AudioStream]
 
 var held_item: HeldItem = HeldItem.Hand
 
@@ -37,7 +38,7 @@ var going_to_max: Dictionary[String, bool] = {"y": true, }
 @onready var hand: Sprite2D = $CanvasLayer/Control/hudhand
 @onready var camera: Camera3D = $Pivot/Camera3D
 @onready var hitcast: RayCast3D = $Pivot/hitcast
-@onready var hit_sound: AudioStreamPlayer3D = $hitsounds
+@onready var audio_player: AudioStreamPlayer3D = $genericaudioplayer
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 @onready var BOB_Y_MIN: float = hand.transform.origin.y
@@ -107,11 +108,14 @@ func attack(_delta: float, held_item: HeldItem) -> void:
         return
 
     var obj = hitcast.get_collider()
-    hit_sound.play()
+
     if held_item == HeldItem.Axe:
         anim_player.play("swing_axe")
+        audio_player.stream = hitsounds["hit2"]
     if held_item == HeldItem.Pickaxe:
         anim_player.play("swing_pick")
+        audio_player.stream = hitsounds["hit_pick"]
+    audio_player.play()
 
     if obj:
         anim_cancelable = false
